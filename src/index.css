@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.dg.main{
+  user-select: none !important;
+}
+.close-button{
+  display: none;
+}

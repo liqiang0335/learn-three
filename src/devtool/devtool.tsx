@@ -44,16 +44,5 @@ export const Devtool = memo(() => {
 function Layout() {
   const global = useGlobalStore();
   if (global.dev === false) return null;
-  return (
-    <div
-      id="yythree-devtool"
-      className="h-full select-none fixed left-0 top-0 w-[450px] shadow-lg z-[80000] flex flex-col overflow-hidden text-[12px] bg-gray-100"
-    >
-      <div className="flex-1 bg-white flex flex-col">
-        <div className="bg-gray-300 shrink-0 p-1 px-2 flex items-center h-[30px]">
-          <div className="flex-1"></div>
-        </div>
-      </div>
-    </div>
-  );
+  return <div id="yythree-devtool" className="h-[50px] select-none fixed left-0 top-0 w-full flex items-center text-[12px] bg-gray-400"></div>;
 }
