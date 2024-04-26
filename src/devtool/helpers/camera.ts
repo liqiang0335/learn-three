@@ -4,23 +4,21 @@ import { message } from "antd";
 import { IHelper } from "./helper";
 
 /**
- * 添加平行光设置
+ * 添加平行光
  */
-export async function addDirectLightSetting({ uuid, scene, gui }: IHelper) {
-  const folder = gui.addFolder("平行光设置");
+export async function addCameraSetting({ uuid, scene, gui, camera }: IHelper) {
+  const folder = gui.addFolder("相机设置");
 
-  // 添加 DirectionalLight 光源
-  const light = new THREE.DirectionalLight(0xffffff, 1);
-  const helper = new THREE.DirectionalLightHelper(light);
+  // 添加camera辅助线
+  const helper = new THREE.CameraHelper(camera);
 
   const option: { [key: string]: any } = {
-    颜色: "#ff0000", // 光源颜色
-    强度: 1, // 光源强度
     辅助线: true, // 是否显示辅助线
-    X坐标: 1, // 光源位置X
-    Y坐标: 1, // 光源位置Y
-    Z坐标: 0, // 光源位置Z
+    X坐标: 1, // 位置X
+    Y坐标: 1, // 位置Y
+    Z坐标: 0, // 位置Z
     save() {
+      // remove function type
       const obj: { [key: string]: any } = {};
       for (const key in option) {
         if (typeof option[key] !== "function") {
@@ -31,26 +29,24 @@ export async function addDirectLightSetting({ uuid, scene, gui }: IHelper) {
         message.success("保存成功");
       });
     },
+    update() {
+      option.X坐标 = camera.position.x;
+      option.Y坐标 = camera.position.y;
+      option.Z坐标 = camera.position.z;
+      folder.updateDisplay();
+    },
   };
 
   // 读取本地存储的数据
   localforage.getItem(uuid).then((value) => {
     if (value) {
       Object.assign(option, value);
-      light.color.set(option.颜色);
-      light.intensity = option.强度;
-      light.position.set(option.X坐标, option.Y坐标, option.Z坐标);
-      if (option.辅助线) scene.add(helper);
+      camera.position.set(option.X坐标, option.Y坐标, option.Z坐标);
+      if (option.辅助线) {
+        scene.add(helper);
+      }
       folder.updateDisplay();
     }
-  });
-
-  folder.addColor(option, "颜色").onChange((value) => {
-    light.color.set(value);
-  });
-
-  folder.add(option, "强度", 0, 1, 0.1).onChange((value) => {
-    light.intensity = value;
   });
 
   folder.add(option, "辅助线").onChange((value) => {
@@ -58,18 +54,19 @@ export async function addDirectLightSetting({ uuid, scene, gui }: IHelper) {
   });
 
   folder.add(option, "X坐标", -50, 50, 1).onChange((value) => {
-    light.position.setX(value);
+    camera.position.setX(value);
   });
 
   folder.add(option, "Y坐标", -50, 50, 1).onChange((value) => {
-    light.position.setY(value);
+    camera.position.setY(value);
   });
 
   folder.add(option, "Z坐标", -50, 50, 1).onChange((value) => {
-    light.position.setZ(value);
+    camera.position.setZ(value);
   });
 
   folder.add(option, "save");
+  folder.add(option, "update");
 
-  scene.add(light);
+  scene.add(camera);
 }
