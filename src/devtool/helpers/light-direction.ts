@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import localforage from "localforage";
-import { message } from "antd";
 import { IHelper } from "./helper";
+import { toast } from "sonner";
 
 /**
  * 添加平行光设置
@@ -28,7 +28,7 @@ export async function addDirectLightSetting({ uuid, scene, gui }: IHelper) {
         }
       }
       localforage.setItem(uuid, obj).then(() => {
-        message.success("保存成功");
+        toast.success("保存成功");
       });
     },
   };

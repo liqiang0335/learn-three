@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import localforage from "localforage";
-import { message } from "antd";
 import { IHelper } from "./helper";
+import { toast } from "sonner";
 
 /**
  * 添加平行光
@@ -26,7 +26,7 @@ export async function addCameraSetting({ uuid, scene, gui, camera }: IHelper) {
         }
       }
       localforage.setItem(uuid, obj).then(() => {
-        message.success("保存成功");
+        toast.success("保存成功");
       });
     },
     update() {

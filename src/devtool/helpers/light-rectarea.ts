@@ -1,10 +1,9 @@
 import * as THREE from "three";
 import localforage from "localforage";
-import { message } from "antd";
 import { RectAreaLightHelper } from "three/addons/helpers/RectAreaLightHelper.js";
 import { IHelper } from "./helper";
 import { removeUnserializableProps } from "./helper.utils";
-
+import { toast } from "sonner";
 /**
  * 添加平行光设置
  */
@@ -23,7 +22,7 @@ export async function addRectLighgtSetting({ uuid, scene, gui }: IHelper) {
     Z坐标: 0, // 光源位置Z
     save() {
       localforage.setItem(uuid, removeUnserializableProps(option)).then(() => {
-        message.success("保存成功");
+        toast.success("保存成功");
       });
     },
   };
