@@ -11,7 +11,7 @@ import { global } from "./global";
 export default function App() {
   return (
     <div>
-      <canvas id="contianer" className="bg-gray-100 w-full h-[600px]"></canvas>
+      <canvas id="contianer" className="bg-gray-100 w-full h-[600px] fixed left-0 top-0"></canvas>
       <Devtool></Devtool>
       <Toaster position="top-center"></Toaster>
     </div>
