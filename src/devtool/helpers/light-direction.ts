@@ -49,7 +49,7 @@ export async function addDirectLightSetting({ uuid, scene, gui }: IHelper) {
     light.color.set(value);
   });
 
-  folder.add(option, "强度", 0, 1, 0.1).onChange((value) => {
+  folder.add(option, "强度", 0.1, 5, 0.1).onChange((value) => {
     light.intensity = value;
   });
 
