@@ -11,6 +11,7 @@ export interface IModelLoaded {
 export const hub = createEventHub();
 export const HubType = {
   ModelLoaded: "ModelLoaded", // 加载完成
+  Selected: "Selected", // 点击网格
 };
 
 /**

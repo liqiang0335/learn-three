@@ -11,23 +11,24 @@ import { global } from "@/global";
  */
 export async function renderModel(canvas: HTMLCanvasElement) {
   const scene = new THREE.Scene();
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
+
+  const width = canvas.width;
+  const height = canvas.height;
 
   const camera = new THREE.PerspectiveCamera(75, width / height, 1, 10000);
   camera.position.z = 0;
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, canvas });
-
-  // 设置背景色
-  renderer.setClearColor("rgb(200,200,200)");
   renderer.setSize(width, height);
   renderer.shadowMap.enabled = true;
 
   document.body.appendChild(renderer.domElement);
 
+  /**
+   * 加载模型
+   */
   const loader = new GLTFLoader();
   loader.load("demo/Dam_Rename2.glb", (gltf) => {
-    const model = gltf.scene;
+    const model = gltf.scene.clone();
     global.model = model;
 
     const colors = ["rgb(160,160,160)", "rgb(165,165,165)", "rgb(170,170,170)", "rgb(175,175,175)", "rgb(180,180,180)"];
